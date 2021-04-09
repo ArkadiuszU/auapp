@@ -6,6 +6,7 @@ npm-debug.log*
 package-lock.json
 node_modules/
 .sass-cache/
+build/
 
 ### OSX ###
 .DS_Store

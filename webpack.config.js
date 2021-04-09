@@ -1,8 +1,11 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require("path");
-const entryPath = "/App";
+const entryPath = "App";
 
 module.exports = {
-  entry: `./${entryPath}/js/app.js`,
+  mode: 'development',
+  entry: `./${entryPath}/src/index.js`,
   output: {
     filename: "out.js",
     path: path.resolve(__dirname, `${entryPath}/build`)
@@ -12,7 +15,8 @@ module.exports = {
     publicPath: "/build/",
     compress: true,
     port: 3001,
-    historyApiFallback: true
+    historyApiFallback: true,
+    open: true
   },
   module: {
     rules: [
@@ -20,7 +24,17 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: "babel-loader"
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader',],
       }
     ]
-  }
-};
+  },
+  plugins:[
+    new MiniCssExtractPlugin(),
+    new HtmlWebpackPlugin({
+      template: './App/index.html'
+    })
+  ]
+}; 
