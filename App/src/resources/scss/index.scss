@@ -1,10 +1,90 @@
 @import "reset";
 @import "grid";
 
+@import "~react-vis/dist/style";
 
 
-
-.test_class{
-    background-color: red;
+.from-box-container{
+    border: 2px solid green;
     width: 100%;
+    height: 18%;
 }
+
+.one{
+    background-color: green;
+}
+
+.two{
+    background-color: red;
+}
+
+.content-box-container{
+    border: 2px solid violet;
+    width: 100%;
+    height: 80%;
+    overflow-y: scroll;
+}
+
+.line-plot-container{
+    height: 50%;
+   
+}
+
+.doughnut-container{
+    height: 50%;
+    width:  50%;
+    display:inline-block;
+}
+
+.bar-container{
+    height: 50%;
+    width:  50%;
+    display:inline-block;
+    padding:2%;
+}
+
+
+.example-enter {
+    opacity: 0.01;
+  }
+  
+  .example-enter.example-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+  
+  .example-leave {
+    opacity: 1;
+  }
+  
+  .example-leave.example-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
+
+
+
+  .mycol
+  {
+      text-align: center;
+      border-right: 2px solid grey ;
+      border-bottom: 2px solid grey ;
+      background-color: olivedrab;
+  }
+
+  .mycol-first
+  {
+    border-right: 2px solid grey ;
+  }
+
+  .mycol-header
+  {
+      background-color: midnightblue;
+      color: ivory;
+      text-align: center;
+  }
+  .mycol-header-first
+  {
+    border-right: 2px solid midnightblue ;
+    
+  }

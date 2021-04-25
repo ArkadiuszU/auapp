@@ -1,20 +1,31 @@
-
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import './resources/scss/index.scss';
 
+import FormBox from "./components/FormBox"
+import ContentBox from "./components/ContentBox"
 
-function App(props) {
+import Data from "./data/data"
+
+
+const App= () => {
+
+  useEffect(()=>{
+
+    console.log(Data.GetData("temperature"))
+  
+  },[])
+  
+
+
     return (
-    <>
-    <h1 className="test_class" >Hi, {props.name}</h1>
-    <div className="row">
-      <div className="col-3" style={{backgroundColor:"blue"}}></div>
-      <div className="col-8" style={{backgroundColor:"green"}}></div>
+      <>
+        <FormBox/>
+        {/* <ContentBox  typeOfDataPresentation = {false}  data={Data.allData}/> */}
+        <ContentBox  typeOfDataPresentation = {true}  data={Data.GetData("temperature")}/>
+      </>
 
-    </div>
-    </>
-    );
+   );
   }
 
 
