@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import './resources/scss/index.scss';
 
@@ -10,19 +10,21 @@ import Data from "./data/data"
 
 const App= () => {
 
-  useEffect(()=>{
+  const [typeOfDataPresentation, setTypeOfDataPresentation] = useState(false);
 
-    console.log(Data.GetData("temperature"))
   
-  },[])
-  
+  const CheckedHendle = () => 
+  {
+    console.log("no hej")
+    setTypeOfDataPresentation(prev=> !prev)
+  }
+
 
 
     return (
       <>
-        <FormBox/>
-        {/* <ContentBox  typeOfDataPresentation = {false}  data={Data.allData}/> */}
-        <ContentBox  typeOfDataPresentation = {true}  data={Data.GetData("temperature")}/>
+        <FormBox value = {typeOfDataPresentation} event={CheckedHendle}/>
+         {(typeOfDataPresentation)?<ContentBox  typeOfDataPresentation = {true}  data={Data.GetData("temperature")}/>:<ContentBox  typeOfDataPresentation = {false}  data={Data.allData}/>}
       </>
 
    );

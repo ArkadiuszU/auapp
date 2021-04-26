@@ -5,86 +5,37 @@
 
 
 .from-box-container{
-    border: 2px solid green;
     width: 100%;
-    height: 18%;
+    height: 40%;
 }
-
-.one{
-    background-color: green;
-}
-
-.two{
-    background-color: red;
-}
-
 .content-box-container{
-    border: 2px solid violet;
     width: 100%;
-    height: 80%;
+    height: 60%;
     overflow-y: scroll;
+    position: absolute;
 }
-
-.line-plot-container{
-    height: 50%;
-   
-}
-
-.doughnut-container{
-    height: 50%;
-    width:  50%;
-    display:inline-block;
-}
-
-.bar-container{
-    height: 50%;
-    width:  50%;
-    display:inline-block;
-    padding:2%;
-}
-
-
-.example-enter {
-    opacity: 0.01;
+  .myrow
+  {
+      text-align: center;
+      background-color: #f6f6f8e7;
+      &:nth-child(odd) {background-color: rgba(255, 255, 255, 0.897)}
   }
-  
-  .example-enter.example-enter-active {
-    opacity: 1;
-    transition: opacity 500ms ease-in;
-  }
-  
-  .example-leave {
-    opacity: 1;
-  }
-  
-  .example-leave.example-leave-active {
-    opacity: 0.01;
-    transition: opacity 300ms ease-in;
-  }
-
-
 
   .mycol
   {
-      text-align: center;
-      border-right: 2px solid grey ;
-      border-bottom: 2px solid grey ;
-      background-color: olivedrab;
+    background-color: #FFF;
   }
 
-  .mycol-first
+  .row-header
   {
-    border-right: 2px solid grey ;
-  }
-
-  .mycol-header
-  {
-      background-color: midnightblue;
-      color: ivory;
+      background-color: #144069;
+      color: #c6dbee;
+      height: 40px;
+      font-size: medium;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
       text-align: center;
+      position: -webkit-sticky; /* Safari */
+      position: sticky;
+      top: 0;
   }
-  .mycol-header-first
-  {
-    border-right: 2px solid midnightblue ;
-    
-  }
+ 

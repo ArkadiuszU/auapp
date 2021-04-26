@@ -1,16 +1,30 @@
 import React, {useState} from 'react'
 
 
-const FormBox = () =>
+const FormBox = ({event , value}) =>
 {
-  const [typeOfDataPresentation, setTypeOfDataPresentation] = useState({line:true, table:false})
+
+  const _CheckedHendle = ()=> 
+  {
+    event();
+  }
+
   return(
           <>
             <div className="from-box-container" > 
-            Line 
-              <input type="checkBox"  name="line"/>
-            Table
-              <input type="checkBox"  name = "table"/>
+            <label for="plot">plot</label>
+              <input id="plot" type="checkBox" checked={value}  onChange={_CheckedHendle}/>
+            <label for="table">table</label>
+              <input id="table" type="checkBox" checked={!value}  onChange={_CheckedHendle}/>
+
+              <label for="measurement_type">Choose a measurement type to plot</label>
+              <select name="measurement_type" id="measurement_type">
+                <option value="temperature">Temperatura</option>
+                <option value="humidity">Wilgotność</option>
+                <option value="insolation">Nasłonecznienie</option>
+                <option value="pressure">Ciśnienie</option>
+                <option value="comfort_factor">Współczynnik komfortu</option>
+              </select>
             </div>
           </>
         )

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Bar, Line, Doughnut  } from 'react-chartjs-2';
+import {Line} from 'react-chartjs-2';
 
 
 const options = {
@@ -19,7 +19,6 @@ const Plot = ({data}) =>
 {
 
   const [dataState, setDataState] = useState()
-
 
   useEffect(()=>{
     console.log(data)
