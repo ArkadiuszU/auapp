@@ -26,7 +26,7 @@ const Plot = ({data}) =>
     const labels = []
     data.forEach(element => {
       datatoplot.push(element.measurmentValue)
-      labels.push(element.measurmentTime)
+      labels.push("")
     });
 
   console.log(datatoplot)

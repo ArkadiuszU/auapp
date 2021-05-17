@@ -1,16 +1,18 @@
 
+
+
+    .scroll-table
+    {
+        overflow-y: scroll;
+        max-height: 90%;
+    }
+
 .myrow
 {
       text-align: center;
       background-color: #f6f6f8e7;
       &:nth-child(odd) {background-color: rgba(255, 255, 255, 0.897)}
 }
-
-  .mycol
-  {
-    background-color: #FFF;
-  }
-
   .row-header
   {
       background-color: #144069;

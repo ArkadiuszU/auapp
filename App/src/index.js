@@ -42,7 +42,7 @@ const App= () => {
         <Plot data={Data.GetData("temperature")}/>
         </div>
 
-        <div id = "table" className="content-box-container-fourth" > 
+        <div id = "table" className="content-box-container-fourth table-box-container" > 
         <Table data={Data.allData}/>
         </div>
         </>:null

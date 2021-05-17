@@ -14,7 +14,6 @@ html{
 .content-box-container{
     width: 100vw;
     height: 100vh;
-    //overflow-y: scroll;
 }
 .content-box-container-first
 {
@@ -30,14 +29,19 @@ html{
 
 .content-box-container-third
 {
+
     @extend .content-box-container;
-    background-color: white;
+    padding: 5%;
+    background-color: rgb(228, 255, 246)
 }
 
 .content-box-container-fourth
 {
     @extend .content-box-container;
-    background-color: green;
+    background-color: rgb(255, 255, 255);
+    padding-top: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
     
