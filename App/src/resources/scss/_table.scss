@@ -1,0 +1,24 @@
+
+.myrow
+{
+      text-align: center;
+      background-color: #f6f6f8e7;
+      &:nth-child(odd) {background-color: rgba(255, 255, 255, 0.897)}
+}
+
+  .mycol
+  {
+    background-color: #FFF;
+  }
+
+  .row-header
+  {
+      background-color: #144069;
+      color: #c6dbee;
+      height: 40px;
+      font-size: medium;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      text-align: center;
+      position: sticky;
+      top: 0;
+  }

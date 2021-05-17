@@ -1,0 +1,99 @@
+@import "animation_intro";
+
+@keyframes open-animation-bottom {
+    0%  {
+            transform: translateY(250px);
+            opacity: 0;
+        }
+    25% {
+            transform: translateY(0px);
+            opacity: 1;
+        }
+    50% {   
+            transform: rotate(45deg);
+        }
+    75% {  
+            transform: rotate(45deg);
+        }
+    100% {
+            transform: rotate(45deg);
+         }
+  }
+
+  @keyframes open-animation-top {
+    0%  {
+            transform: translateY(-250px);
+            opacity: 0;
+        }
+    25% {
+            transform: translateY(0px);
+            opacity: 1;
+        }
+    50% {   
+            transform: translateY(0px);
+        }
+    75% {  
+            transform: scale(2, 2);
+        }
+    100% {
+            transform: scale(12, 2);
+         }
+  }
+
+@keyframes open-animation-menu {
+    0%  {
+            opacity: 0;
+        }
+
+    100%{
+            opacity: 1;
+        }
+    }
+
+.intro-box{
+    background-color: black;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top:0;
+    bottom:0;
+    right: 0;
+    left:0;
+    margin: auto;
+    color: white;
+}
+
+.intro-box-1
+{
+   @extend .intro-box;
+   animation: open-animation-top 5s 1s both;
+}
+.intro-box-2
+{
+    @extend .intro-box;
+    animation: open-animation-bottom 5s 1s both;
+}
+.intro-box-3
+{
+    @extend .intro-box;
+    width: 960px;
+    height: 160px;
+    opacity: 0;
+    animation: open-animation-menu 1s 0s both;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 21px;
+
+    div{
+        &:hover{
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+        a{
+            text-decoration: none;
+            color:white;
+        }
+    }
+
+}

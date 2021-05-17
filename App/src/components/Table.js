@@ -22,7 +22,7 @@ const Table = ({data}) =>
           {data.map((el, id)=>
           {
             return (
-              <div  className="row myrow">
+              <div  className="row myrow" key={id}>
                 <div className="col-1 mycol"></div>
                 <div className="col-1"> {id}</div>
                 <div className="col-1"> {el.temperature}</div>
