@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 
 
-const DataBox = ({id, imgPath, title, value}) =>
+const DataBox = ({init, id, imgPath, title, value}) =>
 {
     const [hover, setHover] = useState(false);
 
@@ -13,7 +13,7 @@ const DataBox = ({id, imgPath, title, value}) =>
                     <div className ="value"> {value}  </div>
                     <div className = {`image image-${id}`}> </div>
                     <div className = {`underline-${id}`}></div>
-                    <img className = {(hover)?`box-${id}--animation-on`:`box-${id}--animation-off`} src= {imgPath}/> 
+                    <img className = {(init)?(hover)?`box-${id}--animation-on`:`box-${id}--animation-off`:""} src= {imgPath}/> 
                     <div className = {`animation-element`}></div>
                 </div>
                 

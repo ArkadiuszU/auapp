@@ -24,6 +24,37 @@
 
 /* -----  2  ----- */
 
+@keyframes move-On-2 {
+  50% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+  transform: scale(1);
+    opacity: 1;
+}
+}
+
+@keyframes move-Off-2 {
+  50% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+  transform: scale(1);
+    opacity: 1;
+}
+}
+
+
+.box-2--animation-on
+  {
+    animation: move-On-2 1s both  linear;
+  }
+.box-2--animation-off
+  {
+    animation: move-Off-2 0.5s both  linear;
+  }
 
 
 
@@ -42,7 +73,15 @@
   }
 
   @keyframes move-Off-3 {
-    100% {transform: rotate(0deg);}
+    50% {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+51% {
+      transform: translateY(-50px);
+      opacity: 0;
+}
+100% {transform: translateY(0px);}
   }
 
   .box-3--animation-on
@@ -51,7 +90,7 @@
   }
   .box-3--animation-off
   {
-    animation: move-Off-3 0.5s both;
+    animation: move-Off-3 0.4s both  linear;
   }
 
 /* -----  4  ----- */

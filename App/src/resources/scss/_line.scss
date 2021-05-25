@@ -1,0 +1,20 @@
+.line-back
+{
+    width: 90vw;
+    height: 60vh;
+    background-color: white;
+}
+
+.form-back
+{
+    width: 90vw;
+    height: 20vh;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    input{
+        border: solid 2px #144069;
+    }
+
+}

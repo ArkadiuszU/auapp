@@ -1,11 +1,16 @@
 @use "sass:list";
 
+*{
+    margin: 0;
+    padding: 0;
+}
 
 @import "reset";
 @import "grid";
 @import "dataBox";
 @import "intro";
 @import "table";
+@import "line";
 
 html{
     scroll-behavior: smooth;
@@ -32,7 +37,7 @@ html{
 
     @extend .content-box-container;
     padding: 5%;
-    background-color: rgb(228, 255, 246)
+    background-color: rgb(236, 140, 140)
 }
 
 .content-box-container-fourth

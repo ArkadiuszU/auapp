@@ -50,7 +50,22 @@ setDataState(
 
 
 
-  return(<Line  height={null} width={null} data={dataState} options={options} />)
+  
+  return(
+    <>
+    <div className="form-back">
+      <input ></input>
+      <input ></input>
+      <input ></input>
+      <input ></input>
+      <input ></input>
+  </div>
+  <div className="line-back">
+      <Line height={null} width={null} data={dataState} options={options} />
+  </div>
+  </>
+  
+  )
  
 }
 
