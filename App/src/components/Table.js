@@ -19,17 +19,18 @@ const Table = ({data}) =>
 
           {data.map((el, id)=>
           {
+            
             return (
-              <div  className="row myrow" key={id}>
-                <div className="col-1"> {id}</div>
-                <div className="col-1"> {el.temperature}</div>
-                <div className="col-1"> {el.humidity}</div>
-                <div className="col-1"> {el.insolation}</div>
-                <div className="col-1"> {el.pressure}</div>
-                <div className="col-1"> {el.comfort_factor}</div>
-                <div className="col-2"> {el.dateOfMeasurement.slice(0,10)}</div>
-                <div className="col-2"> {el.dateOfMeasurement.slice(11,19)}</div>
-              </div>
+                  <div className={`row myrow animation-table-${id}`} key={id}>
+                  <div className="col-1"> {id}</div>
+                  <div className="col-1"> {Math.round(el.temperature * 100) / 100}</div>
+                  <div className="col-1"> {el.humidity}</div>
+                  <div className="col-1"> {el.insolation}</div>
+                  <div className="col-1"> {el.pressure}</div>
+                  <div className="col-1"> {el.comfort}</div>
+                  <div className="col-2"> {el.created.slice(0,10)}</div>
+                  <div className="col-2"> {el.created.slice(11,19)}</div>
+                  </div>
             )
           })
           }

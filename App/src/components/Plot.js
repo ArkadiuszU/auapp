@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import {Line} from 'react-chartjs-2';
-
+import React, { useEffect, useState } from "react";
+import { Line } from "react-chartjs-2";
 
 const options = {
   scales: {
@@ -12,61 +11,45 @@ const options = {
       },
     ],
   },
-  maintainAspectRatio: false
-}
+  legend: {
+    onClick: function (e) {
+      e.stopPropagation();
+    },
+  },
+  maintainAspectRatio: false,
+};
 
-const Plot = ({data}) =>
-{
 
-  const [dataState, setDataState] = useState()
+const Plot = ({ data, change }) => {
 
+  const [measurements, setMeasurements] = useState(1)
+  const format = [  {"name": "temperature", "value" : "temponly"},
+                    {"name": "humidity", "value" : "humonly"},
+                    {"name": "insolation", "value" : "insonly"},
+                    {"name": "pressure", "value" : "pressonly"}, ]
   useEffect(()=>{
-    console.log(data)
-    const datatoplot = []
-    const labels = []
-    data.forEach(element => {
-      datatoplot.push(element.measurmentValue)
-      labels.push("")
-    });
 
-  console.log(datatoplot)
-setDataState(
-    {
-      labels: labels,
-      datasets: [
-        {
-          label: '# of Votes',
-          data: datatoplot,
-          fill: false,
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgba(255, 99, 132, 0.2)',
-        },
-      ],
-    }
-)
+    change(format[measurements].value, format[measurements].name , measurements)
+  }, [measurements])
 
-
-  },[])
-
-
-
-  
-  return(
+  return (
     <>
-    <div className="form-back">
-      <input ></input>
-      <input ></input>
-      <input ></input>
-      <input ></input>
-      <input ></input>
-  </div>
-  <div className="line-back">
-      <Line height={null} width={null} data={dataState} options={options} />
-  </div>
-  </>
-  
-  )
- 
-}
+      <div className="form-back">
+        <div>
+          <label htmlFor="measurements">Choose a data to plot:</label>
+          <select id="measurements" value = {measurements} onChange = {e => setMeasurements(e.target.value)} >
+            <option value={0}> temperature</option>
+            <option value={1}> humidity</option>
+            <option value={2}> insolation</option>
+            <option value={3}> pressure</option>
+          </select>
+        </div>
+      </div>
+      <div className="line-back">
+        <Line height={null} width={null} data={(data==undefined)?{ data: { datasets:[], labels:[] } }:data} options={options} />
+      </div>
+    </>
+  );
+};
 
-export default Plot
+export default Plot;

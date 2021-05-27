@@ -1,6 +1,7 @@
 {
   "name": "es6-react",
   "version": "2.1.0",
+  "proxy": "http://silgy.org:3030",
   "scripts": {
     "start": "webpack-dev-server --hot -d",
     "build": "webpack -p"

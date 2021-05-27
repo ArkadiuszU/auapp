@@ -5,6 +5,7 @@
     {
         overflow-y: scroll;
         max-height: 90%;
+        min-height: 90%;
     }
 
 .myrow
@@ -12,6 +13,7 @@
       text-align: center;
       background-color: #f6f6f8e7;
       &:nth-child(odd) {background-color: rgba(255, 255, 255, 0.897)}
+      
 }
   .row-header
   {
@@ -22,5 +24,26 @@
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
       text-align: center;
       position: sticky;
+      z-index: 4;
       top: 0;
+  }
+
+
+  @for $i from 0 through 40 {
+
+    .animation-table-#{$i}
+  {
+    animation: animation 0.4s ease-in both;
+    animation-delay: $i * 0.05s ;
+  }
+
+}
+  
+  @keyframes animation {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+  }
   }
