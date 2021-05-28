@@ -5,6 +5,7 @@ import "./resources/scss/index.scss";
 import Plot from "./components/Plot";
 import Table from "./components/Table";
 import DataBox from "./components/DataBox";
+import Arrow from "./components/Arrow"
 
 const breackpoints = [20, 50, 90];
 const colorsForPlot = ["rgb(255, 99, 132)", "rgb(23, 21, 151)", "rgb(157, 160, 16)", "rgb(29, 83, 34)"  ];
@@ -54,17 +55,17 @@ const App = () => {
     }
   };
 
-  const NextSide = (e) => {
+  const NextSide = (side) => {
     location.href = "#";
     location.href = `#${
-      idLists[idLists.indexOf(e.target.parentElement.parentElement.id) + 1]
+      idLists[idLists.indexOf(side) + 1]
     }`;
   };
 
-  const PrevSide = (e) => {
+  const PrevSide = (side) => {
     location.href = "#";
     location.href = `#${
-      idLists[idLists.indexOf(e.target.parentElement.parentElement.id) - 1]
+      idLists[idLists.indexOf(side) - 1]
     }`;
   };
 
@@ -192,13 +193,8 @@ const App = () => {
         id="boxes"
         className="content-box-container-second dataBox-box-container"
       >
-        <div className="top-box">
-          <img
-            className="prevButton"
-            onClick={PrevSide}
-            src="/src/resources/img/arrow.svg"
-          />
-        </div>
+        <Arrow onClickHendle={PrevSide} style={"top"} parent={"boxes"}/>
+     
         <DataBox
           animateTriger={animateTriger}
           id={1}
@@ -228,32 +224,17 @@ const App = () => {
           imgPath="/src/resources/img/sun.png"
         />
 
-        <div className="bottom-box">
-          <img
-            className="nextButton"
-            onClick={NextSide}
-            src="/src/resources/img/arrow.svg"
-          />
-        </div>
+        <Arrow onClickHendle={NextSide} style={"bottom"} parent={"boxes"}/>
+
         <button onClick={RefreshBoxes}> Refresh </button>
       </div>
 
       <div id="line-plot" className="content-box-container-third">
-        <div className="top-box">
-          <img
-            className="prevButton"
-            onClick={PrevSide}
-            src="/src/resources/img/arrow.svg"
-          />
-        </div>
+      <Arrow onClickHendle={PrevSide} style={"top"} parent={"line-plot"}/>
+
         <Plot data={dataForPlot} change = {RefreshPlotByForm}/>
-        <div className="bottom-box">
-          <img
-            className="nextButton"
-            onClick={NextSide}
-            src="/src/resources/img/arrow.svg"
-          />
-        </div>
+
+        <Arrow onClickHendle={NextSide} style={"bottom"} parent={"line-plot"} />
         <button onClick={RefreshPlot}> Refresh </button>
       </div>
 
@@ -261,16 +242,12 @@ const App = () => {
         id="table"
         className="content-box-container-fourth table-box-container"
       >
-        <div className="top-box">
-          <img
-            className="prevButton"
-            onClick={PrevSide}
-            src="/src/resources/img/arrow.svg"
-          />
-        </div>
+
+        <Arrow onClickHendle={PrevSide} style={"top"}  parent={"table"}/>
         <Table data={allData} />
 
         <button onClick={RefreshTable}> Refresh </button>
+        {/* <img onClick={RefreshTable} className = "refresh-button" src= "src/resources/img/refresh.svg"/>  */}
       </div>
     </>
   );
