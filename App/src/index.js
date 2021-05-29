@@ -10,12 +10,13 @@ import Arrow from "./components/Arrow"
 const breackpoints = [20, 50, 90];
 const colorsForPlot = ["rgb(255, 99, 132)", "rgb(23, 21, 151)", "rgb(157, 160, 16)", "rgb(29, 83, 34)"  ];
 const colorsForPlotBorder = ["rgba(255, 99, 132, 0.2)", "rgb(81, 178, 236)", "rgb(236, 240, 23)", "rgb(73, 180, 82)"];
-const sides = 4;
-let wait = false;
+
+
 const App = () => {
   const firstScan = [false, false, false];
   const idLists = ["intro", "boxes", "line-plot", "table"];
   const [animateTriger, setAnimateTriger] = useState(0);
+  const [plotTriger, setPlotTriger] = useState(false);
   const [currentData, setCurrentData] = useState({
     comfort: 0,
     created: "2021-05-25 18:19:35",
@@ -26,9 +27,10 @@ const App = () => {
     temperature: 0,
   });
 
+
   const [allData, setAllData] = useState([]);
   const [dataForPlot, setdataForPlot] = useState({ data: { datasets:[], labels:[] } });
-
+  
   const handleScroll = () => {
     let h = document.documentElement,
       b = document.body,
@@ -43,9 +45,7 @@ const App = () => {
       }, 500);
       firstScan[0] = true;
     } else if (percent > breackpoints[1] && !firstScan[1]) {
-      setTimeout(function () {
-        RefreshPlot();
-      }, 500);
+        setPlotTriger(true)
       firstScan[1] = true;
     } else if (percent > breackpoints[2] && !firstScan[2]) {
       setTimeout(function () {
@@ -69,20 +69,24 @@ const App = () => {
     }`;
   };
 
+
+
   useEffect(() => {
+    
     window.addEventListener("scroll", handleScroll);
+
   }, []);
+
+
 
   const RefreshBoxes = () => {
     setAnimateTriger(0);
 
     fetch("http://silgy.org:3030/api/measurements")
       .then((resp) => {
-        console.log(resp);
         return resp.json();
       })
       .then((data) => {
-        console.log(data.measurements[data.measurements.length - 1]);
         setCurrentData(data.measurements[data.measurements.length - 1]);
 
         setAnimateTriger(1);
@@ -109,40 +113,11 @@ const App = () => {
       });
   };
 
-  const RefreshPlot = () => {
-    setdataForPlot({ data: { datasets:[], labels:[] } });
-    fetch(`http://silgy.org:3030/api/measurements?temponly=1`)
-      .then((resp) => {
-        return resp.json();
-      })
-      .then((data) => {
-        const d = data[Object.keys(data)[1]];
-        const labels = [];
-        data.temperature.forEach((el) => {
-          labels.push("");
-        });
+    const RefreshPlot = (m) => {
 
-        setdataForPlot({
-          labels: labels,
-          datasets: [
-            {
-              label: "temperature",
-              data: d,
-              fill: false,
-              backgroundColor: colorsForPlot[0],
-              borderColor: colorsForPlotBorder[0],
-            },
-          ],
-        });
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  const RefreshPlotByForm = (value, name, id) => {
     setdataForPlot({ data: { datasets:[], labels:[] } });
-    fetch(`http://silgy.org:3030/api/measurements?${value}=1`)
+
+    fetch(`http://silgy.org:3030/api/measurements?${m.value}=1&created_btw=${m.created.from.replace("T", "+").concat(":00")},${m.created.to.replace("T", "+").concat(":00")}`)
       .then((resp) => {
         return resp.json();
       })
@@ -157,11 +132,11 @@ const App = () => {
           labels: labels,
           datasets: [
             {
-              label: name,
+              label: m.name,
               data: d,
               fill: false,
-              backgroundColor: colorsForPlot[id],
-              borderColor: colorsForPlotBorder[id],
+              backgroundColor: colorsForPlot[m.id],
+              borderColor: colorsForPlotBorder[m.id],
             },
           ],
         });
@@ -232,10 +207,10 @@ const App = () => {
       <div id="line-plot" className="content-box-container-third">
       <Arrow onClickHendle={PrevSide} style={"top"} parent={"line-plot"}/>
 
-        <Plot data={dataForPlot} change = {RefreshPlotByForm}/>
+       <Plot data={dataForPlot} change = {RefreshPlot} triger = {plotTriger}/>
 
         <Arrow onClickHendle={NextSide} style={"bottom"} parent={"line-plot"} />
-        <button onClick={RefreshPlot}> Refresh </button>
+        
       </div>
 
       <div

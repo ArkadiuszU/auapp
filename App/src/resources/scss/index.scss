@@ -57,7 +57,7 @@ html{
     height: 50px;
     transform: rotate(180deg);
     opacity: 0.1;
-    transition: opacity, linear 0.5s;
+    transition: opacity, linear 0.5s 0.25s;
         #path-for-animate
         {   
             fill: transparent;
@@ -71,7 +71,7 @@ html{
         opacity: 1;
         #path-for-animate
         {
-            animation: arrow-animation 0.25s linear both 
+            animation: arrow-animation 0.5s linear both 
         }
         cursor: pointer;
     }
@@ -80,7 +80,7 @@ html{
 @keyframes arrow-animation {
     0% { 
         stroke-dashoffset: 1600;
-        opacity: 0;
+        opacity: 0.5;
 
     }
     100% { 
