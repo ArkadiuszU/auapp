@@ -5,18 +5,31 @@ import "./resources/scss/index.scss";
 import Plot from "./components/Plot";
 import Table from "./components/Table";
 import DataBox from "./components/DataBox";
-import Arrow from "./components/Arrow"
+import Arrow from "./components/Arrow";
+import DoughnutChart from "./components/DoughnutChart";
+import About from "./components/About";
 
-const breackpoints = [20, 50, 90];
-const colorsForPlot = ["rgb(255, 99, 132)", "rgb(23, 21, 151)", "rgb(157, 160, 16)", "rgb(29, 83, 34)"  ];
-const colorsForPlotBorder = ["rgba(255, 99, 132, 0.2)", "rgb(81, 178, 236)", "rgb(236, 240, 23)", "rgb(73, 180, 82)"];
-
+const breackpoints = [20, 40, 70, 90];
+const colorsForPlot = [
+  "rgb(255, 99, 132)",
+  "rgb(23, 21, 151)",
+  "rgb(157, 160, 16)",
+  "rgb(29, 83, 34)",
+];
+const colorsForPlotBorder = [
+  "rgba(255, 99, 132, 0.2)",
+  "rgb(81, 178, 236)",
+  "rgb(236, 240, 23)",
+  "rgb(73, 180, 82)",
+];
 
 const App = () => {
   const firstScan = [false, false, false];
-  const idLists = ["intro", "boxes", "line-plot", "table"];
+  const idLists = ["intro", "boxes", "line-plot", "table", "about"];
   const [animateTriger, setAnimateTriger] = useState(0);
   const [plotTriger, setPlotTriger] = useState(false);
+  const [sortMethod, setSortMethod] = useState(false);
+  const [sortBy, setSortBy] = useState("created");
   const [currentData, setCurrentData] = useState({
     comfort: 0,
     created: "2021-05-25 18:19:35",
@@ -27,10 +40,11 @@ const App = () => {
     temperature: 0,
   });
 
-
   const [allData, setAllData] = useState([]);
-  const [dataForPlot, setdataForPlot] = useState({ data: { datasets:[], labels:[] } });
-  
+  const [dataForPlot, setdataForPlot] = useState({
+    data: { datasets: [], labels: [] },
+  });
+
   const handleScroll = () => {
     let h = document.documentElement,
       b = document.body,
@@ -39,13 +53,14 @@ const App = () => {
     let percent =
       ((h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight)) * 100;
 
+      console.log(`${percent}%`)
     if (percent > breackpoints[0] && !firstScan[0]) {
       setTimeout(function () {
         RefreshBoxes();
       }, 500);
       firstScan[0] = true;
     } else if (percent > breackpoints[1] && !firstScan[1]) {
-        setPlotTriger(true)
+      setPlotTriger(true);
       firstScan[1] = true;
     } else if (percent > breackpoints[2] && !firstScan[2]) {
       setTimeout(function () {
@@ -57,26 +72,21 @@ const App = () => {
 
   const NextSide = (side) => {
     location.href = "#";
-    location.href = `#${
-      idLists[idLists.indexOf(side) + 1]
-    }`;
+    location.href = `#${idLists[idLists.indexOf(side) + 1]}`;
   };
 
   const PrevSide = (side) => {
     location.href = "#";
-    location.href = `#${
-      idLists[idLists.indexOf(side) - 1]
-    }`;
+    location.href = `#${idLists[idLists.indexOf(side) - 1]}`;
   };
 
-
-
   useEffect(() => {
-    
     window.addEventListener("scroll", handleScroll);
-
   }, []);
 
+  useEffect(() => {
+   RefreshTable();
+  }, [sortMethod , sortBy]);
 
 
   const RefreshBoxes = () => {
@@ -101,7 +111,7 @@ const App = () => {
 
   const RefreshTable = () => {
     setAllData([]);
-    fetch("http://silgy.org:3030/api/measurements")
+    fetch(`http://silgy.org:3030/api/measurements?${(sortMethod)?"od":"o"}=${sortBy}`)
       .then((resp) => {
         return resp.json();
       })
@@ -113,11 +123,16 @@ const App = () => {
       });
   };
 
-    const RefreshPlot = (m) => {
+  const RefreshPlot = (m) => {
+    setdataForPlot({ data: { datasets: [], labels: [] } });
 
-    setdataForPlot({ data: { datasets:[], labels:[] } });
-
-    fetch(`http://silgy.org:3030/api/measurements?${m.value}=1&created_btw=${m.created.from.replace("T", "+").concat(":00")},${m.created.to.replace("T", "+").concat(":00")}`)
+    fetch(
+      `http://silgy.org:3030/api/measurements?${
+        m.value
+      }=1&created_btw=${m.created.from
+        .replace("T", "+")
+        .concat(":00")},${m.created.to.replace("T", "+").concat(":00")}`
+    )
       .then((resp) => {
         return resp.json();
       })
@@ -161,6 +176,9 @@ const App = () => {
           <div>
             <a href="#table">Table</a>
           </div>
+          <div>
+            <a href="#about">About</a>
+          </div>
         </div>
       </div>
 
@@ -168,8 +186,8 @@ const App = () => {
         id="boxes"
         className="content-box-container-second dataBox-box-container"
       >
-        <Arrow onClickHendle={PrevSide} style={"top"} parent={"boxes"}/>
-     
+        <Arrow onClickHendle={PrevSide} style={"top"} parent={"boxes"} />
+
         <DataBox
           animateTriger={animateTriger}
           id={1}
@@ -199,31 +217,69 @@ const App = () => {
           imgPath="/src/resources/img/sun.png"
         />
 
-        <Arrow onClickHendle={NextSide} style={"bottom"} parent={"boxes"}/>
+        <div className="box-bottom">
+          <div className="empty-space">
+    
+          </div>
+          <div>
+          <p>80%</p>
+          <DoughnutChart/>
+          </div>
+        
+        </div>
+
+        <Arrow onClickHendle={NextSide} style={"bottom"} parent={"boxes"} />
 
         <button onClick={RefreshBoxes}> Refresh </button>
       </div>
 
       <div id="line-plot" className="content-box-container-third">
-      <Arrow onClickHendle={PrevSide} style={"top"} parent={"line-plot"}/>
+        <Arrow onClickHendle={PrevSide} style={"top"} parent={"line-plot"} />
 
-       <Plot data={dataForPlot} change = {RefreshPlot} triger = {plotTriger}/>
+        <Plot data={dataForPlot} change={RefreshPlot} triger={plotTriger} />
 
         <Arrow onClickHendle={NextSide} style={"bottom"} parent={"line-plot"} />
-        
       </div>
 
       <div
         id="table"
         className="content-box-container-fourth table-box-container"
       >
+        <div className="filtration-table">
+        <div> 
+          <label>Select a method to sort:</label>
+            <input type="radio" id="ascending" checked={!sortMethod} onChange = {e =>  setSortMethod(false)} />
+            <label htmlFor="ascending">ascending</label>
+            
+            <input type="radio" id="descending"  checked={sortMethod} onChange = {e => setSortMethod(true)}/>
+            <label htmlFor="descending">descending</label>
+            </div>
 
-        <Arrow onClickHendle={PrevSide} style={"top"}  parent={"table"}/>
+            <div>
+            <label htmlFor="sortBy">and sort by:</label>
+            <select id="sortBy" value = {sortBy} onChange = {e => setSortBy(e.target.value)} >
+            <option value="created"> created</option>
+            <option value="temperature"> temperature</option>
+            <option value="humidity"> humidity</option>
+            <option value="insolation"> insolation</option>
+            <option value="pressure"> pressure</option>
+            <option value="comfort"> comfort</option>
+          </select>
+          </div>
+        </div>
+        <Arrow onClickHendle={PrevSide} style={"top"} parent={"table"} />
         <Table data={allData} />
-
-        <button onClick={RefreshTable}> Refresh </button>
-        {/* <img onClick={RefreshTable} className = "refresh-button" src= "src/resources/img/refresh.svg"/>  */}
+        <Arrow onClickHendle={NextSide} style={"bottom"} parent={"table"} />
       </div>
+      <div
+        id="about"
+        className="content-box-container-about"
+      >
+       <Arrow onClickHendle={PrevSide} style={"top"} parent={"about"} /> 
+        <About/>
+
+        </div>
+
     </>
   );
 };

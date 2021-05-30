@@ -12,6 +12,7 @@
 @import "intro";
 @import "table";
 @import "line";
+@import "about";
 
 html{
     scroll-behavior: smooth;
@@ -46,10 +47,15 @@ html{
 .content-box-container-fourth
 {
     @extend .content-box-container;
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     padding-top: 5%;
     padding-left: 10%;
     padding-right: 10%;
+}
+
+.content-box-container-about
+{
+    @extend .content-box-container;
 }
 
 .nextButton{
