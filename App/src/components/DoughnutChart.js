@@ -18,13 +18,14 @@ const data = {
       borderWidth: 1,
     },
   ],
-  
 };
 
-const DoughnutChart = () => (
+const DoughnutChart = () => {
+  return(
   <>
     <Doughnut data={data} height={0} width={0} options={{events: []}}/>
   </>
-);
+  )
+  };
 
 export default DoughnutChart;

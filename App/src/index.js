@@ -30,6 +30,7 @@ const App = () => {
   const [plotTriger, setPlotTriger] = useState(false);
   const [sortMethod, setSortMethod] = useState(false);
   const [sortBy, setSortBy] = useState("created");
+  const [currentDataComfort, setcurrentDataComfort] = useState(0);
   const [currentData, setCurrentData] = useState({
     comfort: 0,
     created: "2021-05-25 18:19:35",
@@ -127,9 +128,7 @@ const App = () => {
     setdataForPlot({ data: { datasets: [], labels: [] } });
 
     fetch(
-      `http://silgy.org:3030/api/measurements?${
-        m.value
-      }=1&created_btw=${m.created.from
+      `http://silgy.org:3030/api/measurements?created_btw=${m.created.from
         .replace("T", "+")
         .concat(":00")},${m.created.to.replace("T", "+").concat(":00")}`
     )
@@ -137,10 +136,15 @@ const App = () => {
         return resp.json();
       })
       .then((data) => {
+
+        
         const d = data[Object.keys(data)[1]];
         const labels = [];
+        const signal = [];
+        console.log(d);
         d.forEach((el) => {
-          labels.push("");
+          signal.push(el[m.name])
+          labels.push(el.created);
         });
 
         setdataForPlot({
@@ -148,7 +152,7 @@ const App = () => {
           datasets: [
             {
               label: m.name,
-              data: d,
+              data: signal,
               fill: false,
               backgroundColor: colorsForPlot[m.id],
               borderColor: colorsForPlotBorder[m.id],
@@ -179,6 +183,10 @@ const App = () => {
           <div>
             <a href="#about">About</a>
           </div>
+        </div>
+        <div className="intro-box-4"> 
+            <h1>Projekt zaliczeniowy</h1> 
+            <h1>Inteligentne domy i budynki oraz Monitorowanie i wizualizacja procesów </h1> 
         </div>
       </div>
 
@@ -219,7 +227,23 @@ const App = () => {
 
         <div className="box-bottom">
           <div className="empty-space">
-    
+            <div>
+            <img src= "/src/resources/img/info.png"/>
+            <p>Prezentowane dane zostały zgromadzone: <span>{currentData.created}</span></p> 
+            <p>Komfort został wyznaczony dla nastęlujących wartości oczekiwanych: </p>  
+            <ul>
+              <h1>dzień</h1>
+              <li>temperatura: 20 °C</li>
+              <li>wilgotność: 20 %</li>
+              <li>ciśnienie: 900 hPa</li>
+            </ul>
+            <ul>
+            <h1>noc</h1>
+              <li>temperatura: 20 °C</li>
+              <li>wilgotność: 20 %</li>
+              <li>ciśnienie: 900 hPa</li>
+            </ul>
+            </div>
           </div>
           <div>
           <p>80%</p>

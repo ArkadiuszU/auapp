@@ -8,6 +8,7 @@ const options = {
         ticks: {
           beginAtZero: true,
         },
+        
       },
     ],
   },
@@ -34,7 +35,6 @@ const Plot = ({ data, change, triger }) => {
 
   useEffect(()=>{
 
-  
     fetch("http://silgy.org:3030/api/measurements?od=created&firstonly=1")
     .then((resp) => {
       return resp.json();

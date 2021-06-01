@@ -50,6 +50,22 @@
         }
     }
 
+@keyframes open-animation-title {
+    0%  {
+            opacity: 0;
+            color:rgb(22, 20, 20);
+        }
+    50%{
+           opacity: 1;
+           color:rgb(22, 20, 20);
+        }
+    100%
+        {
+            opacity: 1;
+            color:black;
+        }
+}
+
 .intro-box{
     background-color: black;
     width: 80px;
@@ -96,4 +112,20 @@
         }
     }
 
+}
+
+.intro-box-4
+{
+    font-size: xx-large;
+    position: absolute;
+    width: 100%;
+    top:15%;
+    text-align: center;
+    h1{
+        margin: 2%;
+       
+            animation: open-animation-title 2s 6.5s both linear;
+      
+    }
+    
 }

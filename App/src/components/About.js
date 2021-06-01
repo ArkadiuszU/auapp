@@ -3,22 +3,53 @@ import React, { useEffect, useState } from "react";
 const About = ({ animateTriger, id, imgPath, title, value }) => {
   return (
     <div className="about-container">
-     <div className="header">
-
-     <h1>Inteligentne domy i budynki oraz Monitorowanie i wizualizacja procesów </h1>
-
-     </div>
+      <div className="header">
+        <h1>
+          Inteligentne domy i budynki oraz Monitorowanie i wizualizacja procesów{" "}
+        </h1>
+      </div>
       <img className="rpi-image" src="/src/resources/img/pi3dirk.svg" />
       <img className="sensors-image" src="/src/resources/img/sensors.png" />
       <img className="data-image" src="/src/resources/img/digital.svg" />
-      <div class="wifi-image">
+      <img className="api-image" src="/src/resources/img/server-database.jpg" />
+      <img className="gear-image" src="/src/resources/img/gear.png" />
+      <img className="vis-image" src="/src/resources/img/infographic.png" />
+
+
+      <div className = "get-image">
+        <svg
+          width="235"
+          height="198"
+          viewBox="0 0 435 298"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g id="api 1">
+
+            <path
+              id="Vector_2"
+              d="M179.906 143H224V104.093L211.031 115.536L159.156 69L141 85.0206L193.74 131.557L179.906 143Z"
+              fill="#2EA2DB"
+            />
+            <path
+              id="Vector_3"
+              d="M140.268 104H94V140.804L108.515 129.979L162.948 174L182 158.845L126.66 114.825L140.268 104Z"
+              fill="#F16051"
+            />
+           
+          </g>
+        </svg>
+      </div>
+      
+      
+      <div className="wifi-image">
         <svg
           viewBox="0 0 319 319"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <rect fill="#E5E5E5" />
-          <g id="WIFI_icon 1" clip-path="url(#clip0)">
+          <g id="WIFI_icon 1">
             <g id="layer1">
               <g id="g3848">
                 <path
@@ -51,6 +82,7 @@ const About = ({ animateTriger, id, imgPath, title, value }) => {
           </defs>
         </svg>
       </div>
+   
     </div>
   );
 };

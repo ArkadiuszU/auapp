@@ -48,6 +48,29 @@
         opacity:0;
     }
 }
+@keyframes get
+{
+    0%{  
+        opacity:1;
+    }
+    25%
+    {
+        opacity:0;
+        
+    }
+    50%
+    {
+        opacity:1;
+    }
+    75%
+    {
+        opacity:0;
+    }
+    100%
+    {
+        opacity:1;
+    }
+}
 @keyframes wifi-two
 {
     0%{  
@@ -117,6 +140,14 @@
         opacity:1;
     }
 }
+@keyframes gear{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(180deg);
+    }
+}
 
 
 .about-container
@@ -160,9 +191,49 @@
         opacity:0;
         animation: data-transfer 3s linear infinite both
     }
+    .api-image
+    {
+        height: 19%;
+        width: 10%;
+        position: absolute;
+        top:30%;
+        left: 40%;
+    }
+    .gear-image
+    {
+        height: 50px;
+        width: 50px;
+        position: absolute;
+        top: 44%;
+        left: 48%;
+        animation: gear 1s linear infinite both
+    }
+    .vis-image
+    {
+        height: 19%;
+        width: 10%;
+        position: absolute;
+        top:65%;
+        left: 50%; 
+    }
+   .get-image
+   {
+    height: 2%;
+    width: 2%;
+    position: absolute;
+    top:48%;
+    left: 48%; 
+    #Vector_2
+    {
+        animation: wifi-one 4s linear infinite both;
+    }
+    #Vector_3
+    {
+        animation: get 4s linear infinite both;
+    }
+   }
     .wifi-image
     {
-    
         width: 4%;
         height: 4%;
         position: absolute;
