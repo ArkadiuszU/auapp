@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import "./resources/scss/index.scss";
-
+import _ from 'lodash';
 import Plot from "./components/Plot";
 import Table from "./components/Table";
 import DataBox from "./components/DataBox";
@@ -23,14 +23,40 @@ const colorsForPlotBorder = [
   "rgb(73, 180, 82)",
 ];
 
+const measurementsNames = [  {"name": "temperature", "value" : "temponly"},
+                              {"name": "humidity", "value" : "humonly"},
+                              {"name": "insolation", "value" : "insonly"},
+                              {"name": "pressure", "value" : "pressonly"}, ]
+
+const baseComfort = {
+  labels: ['Komfort'],
+  datasets: [
+    {
+      data: [0,0],
+      backgroundColor: [
+        'rgba(224, 224, 224, 0.5)',
+        'rgba(255, 255, 255)',
+      ],
+      borderColor: [
+        'rgba(200, 200, 200, 1)',
+        'rgba(255, 255, 255)',
+      ],
+      borderWidth: 1
+    }
+  ]
+}
+
 const App = () => {
   const firstScan = [false, false, false];
   const idLists = ["intro", "boxes", "line-plot", "table", "about"];
   const [animateTriger, setAnimateTriger] = useState(0);
+  const [animateTrigerAbout, setAnimateTrigerAbout] = useState(false);
   const [plotTriger, setPlotTriger] = useState(false);
   const [sortMethod, setSortMethod] = useState(false);
   const [sortBy, setSortBy] = useState("created");
-  const [currentDataComfort, setcurrentDataComfort] = useState(0);
+  const [currentDataComfort, setCurrentDataComfort] = useState(baseComfort);
+  const [comfortValueInDonat, setComfortValueInDonat] = useState(0);
+  const [statistic, setStatistic] = useState([])
   const [currentData, setCurrentData] = useState({
     comfort: 0,
     created: "2021-05-25 18:19:35",
@@ -53,8 +79,6 @@ const App = () => {
       sh = "scrollHeight";
     let percent =
       ((h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight)) * 100;
-
-      console.log(`${percent}%`)
     if (percent > breackpoints[0] && !firstScan[0]) {
       setTimeout(function () {
         RefreshBoxes();
@@ -69,6 +93,17 @@ const App = () => {
       }, 500);
       firstScan[2] = true;
     }
+    
+    if (percent > 90)
+    {
+      setTimeout(function () {
+        setAnimateTrigerAbout(true)
+      }, 800);
+    }
+    else{
+      setAnimateTrigerAbout(false)
+    }
+
   };
 
   const NextSide = (side) => {
@@ -85,34 +120,73 @@ const App = () => {
     window.addEventListener("scroll", handleScroll);
   }, []);
 
+
   useEffect(() => {
    RefreshTable();
   }, [sortMethod , sortBy]);
 
-
   const RefreshBoxes = () => {
     setAnimateTriger(0);
+    setCurrentDataComfort(0);
+    setComfortValueInDonat(0);
 
-    fetch("http://silgy.org:3030/api/measurements")
+    fetch("http://silgy.org:3030/api/measurements" , {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      cache: 'no-cache'})
       .then((resp) => {
         return resp.json();
       })
       .then((data) => {
         setCurrentData(data.measurements[data.measurements.length - 1]);
-
         setAnimateTriger(1);
+        let comfort =  data.measurements[data.measurements.length - 1].comfort
         setTimeout(function () {
           setAnimateTriger(2);
+          baseComfort.datasets[0].data = [comfort,100-comfort]
+          setCurrentDataComfort(baseComfort)
+          let intervalCounter = 0
+          const interval = setInterval(function () {
+            setComfortValueInDonat(intervalCounter)
+            intervalCounter++;
+            if(intervalCounter>comfort)
+            {
+              clearInterval(interval);
+            }
+            }, 10)
         }, 1500);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+
+      //Statistic
+      setStatistic([])
+      measurementsNames.forEach(element => {
+        fetch(`http://silgy.org:3030/api/measurements/?${element.value}=1` , {
+          method: 'GET', // *GET, POST, PUT, DELETE, etc.
+          cache: 'no-cache'})
+          .then((resp) => {
+            return resp.json();
+          })
+          .then((data) => {
+            let array = data[Object.keys(data)[1]];
+            let sum = array.reduce(function(previousValue, currentValue, index, array) {
+              return previousValue + currentValue;
+            }, 0);
+            setStatistic(prev=> {return  [...prev, {name:element.name, message: `min: ${Math.round(Math.min.apply(null, array)  * 100) / 100}  max: ${Math.round(Math.max.apply(null, array)  * 100) / 100}  avg: ${Math.round(sum/array.length)}` }] })
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      });
+
   };
 
   const RefreshTable = () => {
     setAllData([]);
-    fetch(`http://silgy.org:3030/api/measurements?${(sortMethod)?"od":"o"}=${sortBy}`)
+    fetch(`http://silgy.org:3030/api/measurements?${(sortMethod)?"od":"o"}=${sortBy}` , {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      cache: 'no-cache'})
       .then((resp) => {
         return resp.json();
       })
@@ -130,18 +204,18 @@ const App = () => {
     fetch(
       `http://silgy.org:3030/api/measurements?created_btw=${m.created.from
         .replace("T", "+")
-        .concat(":00")},${m.created.to.replace("T", "+").concat(":00")}`
+        .concat(":00")},${m.created.to.replace("T", "+").concat(":00")}`, {
+          method: 'GET', // *GET, POST, PUT, DELETE, etc.
+          cache: 'no-cache'}
     )
       .then((resp) => {
         return resp.json();
       })
       .then((data) => {
 
-        
         const d = data[Object.keys(data)[1]];
         const labels = [];
         const signal = [];
-        console.log(d);
         d.forEach((el) => {
           signal.push(el[m.name])
           labels.push(el.created);
@@ -200,6 +274,7 @@ const App = () => {
           animateTriger={animateTriger}
           id={1}
           title="temperature"
+          statistic = {statistic}
           value={`${Math.round(currentData.temperature * 100) / 100} °C`}
           imgPath="/src/resources/img/temperature.png"
         />
@@ -207,6 +282,7 @@ const App = () => {
           animateTriger={animateTriger}
           id={2}
           title="pressure"
+          statistic = {statistic}
           value={`${currentData.pressure} hPa`}
           imgPath="/src/resources/img/pressure.png"
         />
@@ -214,6 +290,7 @@ const App = () => {
           animateTriger={animateTriger}
           id={3}
           title="humidity"
+          statistic = {statistic}
           value={`${currentData.humidity} %`}
           imgPath="/src/resources/img/humidity.png"
         />
@@ -221,6 +298,7 @@ const App = () => {
           animateTriger={animateTriger}
           id={4}
           title="insolation"
+          statistic = {statistic}
           value={`${currentData.insolation} lux`}
           imgPath="/src/resources/img/sun.png"
         />
@@ -234,20 +312,20 @@ const App = () => {
             <ul>
               <h1>dzień</h1>
               <li>temperatura: 20 °C</li>
-              <li>wilgotność: 20 %</li>
-              <li>ciśnienie: 900 hPa</li>
+              <li>wilgotność: 50 %</li>
+              <li>ciśnienie: 1013 hPa</li>
             </ul>
             <ul>
             <h1>noc</h1>
-              <li>temperatura: 20 °C</li>
-              <li>wilgotność: 20 %</li>
-              <li>ciśnienie: 900 hPa</li>
+              <li>temperatura: 18 °C</li>
+              <li>wilgotność: 60 %</li>
+              <li>ciśnienie: 1013 hPa</li>
             </ul>
             </div>
           </div>
           <div>
-          <p>80%</p>
-          <DoughnutChart/>
+          <p>{(comfortValueInDonat == 0)?"": `${comfortValueInDonat}%`}</p>
+          <DoughnutChart m={currentDataComfort}/>
           </div>
         
         </div>
@@ -300,7 +378,8 @@ const App = () => {
         className="content-box-container-about"
       >
        <Arrow onClickHendle={PrevSide} style={"top"} parent={"about"} /> 
-        <About/>
+
+        <About animateTriger={animateTrigerAbout}/>
 
         </div>
 

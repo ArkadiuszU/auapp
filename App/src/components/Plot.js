@@ -35,7 +35,9 @@ const Plot = ({ data, change, triger }) => {
 
   useEffect(()=>{
 
-    fetch("http://silgy.org:3030/api/measurements?od=created&firstonly=1")
+    fetch("http://silgy.org:3030/api/measurements?od=created&firstonly=1", {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      cache: 'no-cache'})
     .then((resp) => {
       return resp.json();
     })
@@ -48,7 +50,9 @@ const Plot = ({ data, change, triger }) => {
       console.error("Error:", error);
     });
     
-    fetch("http://silgy.org:3030/api/measurements?o=created&firstonly=1")
+    fetch("http://silgy.org:3030/api/measurements?o=created&firstonly=1", {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      cache: 'no-cache'})
     .then((resp) => {
       return resp.json();
     })

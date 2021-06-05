@@ -17,12 +17,12 @@
     75%
     {
         opacity: 1;
-        transform: translate(270px,100px);
+        transform: translate(235px,100px);
     }
     100%
     {
         opacity: 0;
-        transform: translate(270px,-100px);
+        transform: translate(235px,-100px);
     }
 }
 @keyframes wifi-one
@@ -189,7 +189,6 @@
         top:77%;
         left: 10%;
         opacity:0;
-        animation: data-transfer 3s linear infinite both
     }
     .api-image
     {
@@ -197,7 +196,7 @@
         width: 10%;
         position: absolute;
         top:30%;
-        left: 40%;
+        left: 35%;
     }
     .gear-image
     {
@@ -205,16 +204,16 @@
         width: 50px;
         position: absolute;
         top: 44%;
-        left: 48%;
-        animation: gear 1s linear infinite both
+        left: 43%;
+        
     }
     .vis-image
     {
         height: 19%;
         width: 10%;
         position: absolute;
-        top:65%;
-        left: 50%; 
+        top:66%;
+        left: 55%; 
     }
    .get-image
    {
@@ -223,14 +222,6 @@
     position: absolute;
     top:48%;
     left: 48%; 
-    #Vector_2
-    {
-        animation: wifi-one 4s linear infinite both;
-    }
-    #Vector_3
-    {
-        animation: get 4s linear infinite both;
-    }
    }
     .wifi-image
     {
@@ -239,8 +230,33 @@
         position: absolute;
         top:40%;
         left: 25%;
+}
 
-    #path-4
+}
+
+.animation-class
+{
+    .data-image
+    {
+        animation: data-transfer 3s linear infinite both
+    }
+    .gear-image{
+        animation: gear 1s linear infinite both
+    }
+    .get-image
+    {
+        #Vector_2
+    {
+        animation: wifi-one 4s linear infinite both;
+    }
+    #Vector_3
+    {
+        animation: get 4s linear infinite both;
+    }
+    }
+    .wifi-image
+    {
+        #path-4
     {
         animation: wifi-one 1.5s linear infinite both;
         /* transform-origin: center;
@@ -264,6 +280,128 @@
         /* transform-origin: center;
         transform-box: fill-box; */
     }
+    }
+    
 }
 
+
+.measurment-device-description
+{
+    width: 20%;
+    height: 30%;
+    position: absolute;
+    top:36%;
+    left: 3%;
+    h1{
+        width: 100%;
+        text-align: center;
+        font-size: 120%;
+        margin-bottom: 4%;
+        border-bottom: solid 2px rgb(28, 223, 180);
+    }
+    ul{
+        list-style-type: square;
+        width: 100%;
+        font-size: 80%;
+        margin: 3%;
+        h2{
+            width: 40%;
+            font-size: 110%;
+            text-align: left;
+            border-bottom: solid 2px rgb(28, 223, 180);
+        }
+        li{
+            margin: 2%;
+        }
+    }
+
 }
+
+.react-app-description
+    {
+        width: 20%;
+        height: 30%;
+        position: absolute;
+        top:63%;
+        left: 35%;
+    h1{
+        width: 100%;
+        text-align: center;
+        font-size: 120%;
+        margin-bottom: 4%;
+        border-bottom: solid 2px rgb(95, 187, 248);
+    }
+    ul{
+        list-style-type: square;
+        width: 100%;
+        font-size: 80%;
+        margin: 3%;
+        h2{
+            width: 40%;
+            font-size: 110%;
+            text-align: left;
+            border-bottom: solid 2px rgb(95, 187, 248);
+        }
+        li{
+            margin: 2%;
+        }
+    }
+    }
+
+
+    .api-description
+    {
+        width: 20%;
+        height: 30%;
+        position: absolute;
+        top:28%;
+        left: 47%;
+        
+    h1{
+        width: 100%;
+        text-align: center;
+        font-size: 120%;
+        margin-bottom: 4%;
+        border-bottom: solid 2px rgb(245, 158, 46);
+    }
+    ul{
+        list-style-type: square;
+        width: 100%;
+        font-size: 80%;
+        margin: 3%;
+        h2{
+            width: 40%;
+            font-size: 110%;
+            text-align: left;
+            border-bottom: solid 2px rgb(245, 158, 46);
+        }
+        li{
+            margin: 2%;
+        }
+    }
+    }
+
+    .team-description
+    {
+        width: 20%;
+        height: 30%;
+        position: absolute;
+        top:28%;
+        left: 77%;
+        
+    h1{
+        width: 100%;
+        text-align: left;
+        font-size: 120%;
+        margin-bottom: 4%;
+    }
+    ul{
+        list-style-type: lower;
+        width: 100%;
+       
+        margin: 3%;
+        li{
+            margin: 5%;
+        }
+    }
+    }

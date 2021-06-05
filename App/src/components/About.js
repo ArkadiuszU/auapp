@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-const About = ({ animateTriger, id, imgPath, title, value }) => {
+const About = ({ animateTriger}) => {
   return (
-    <div className="about-container">
+    <div className={(animateTriger)?"about-container animation-class":"about-container"}>
       <div className="header">
         <h1>
           Inteligentne domy i budynki oraz Monitorowanie i wizualizacja procesów{" "}
@@ -83,6 +83,65 @@ const About = ({ animateTriger, id, imgPath, title, value }) => {
         </svg>
       </div>
    
+      <div className="measurment-device-description">
+      <h1>Urządzenie pomiarowe</h1>
+      <ul>
+        <h2>Sprzęt</h2>
+        <li> komputer jednopłytkowy Raspberry Pi 4 </li>
+        <li>czujnik temperatury: MCP9808  </li>
+        <li>czujnik nasłonecznienia: BH1750 </li>
+        <li>czujnik wilgotności: AM2320</li>
+        <li>czujnik ciśnienia: LPS25H</li>
+      </ul>
+      <ul>
+        <h2>Zadania układu</h2>
+        <li>odczyt pomiarów z czujników- protokół I2C</li>
+        <li>wyznaczenie komfortu</li>
+        <li>publikacja danych do API- client Http</li>
+      </ul>
+      </div>
+
+      <div className="react-app-description">
+      <h1>Wizualizacja danych</h1>
+      <ul>
+        <h2>Technologie</h2>
+        <li>HTML CSS JS</li>
+        <li> biblioteka React</li>
+        <li>  pakiet react-chartjs-2</li>
+      </ul>
+      <ul>
+        <h2>Zadania aplikacji</h2>
+        <li>odczyt danych z API- protokół HTTP</li>
+        <li>prezentacja aktualnych danych</li>
+        <li>wizualizacja danych archiwalnych</li>
+      </ul>
+      </div>
+
+      <div className="api-description">
+      <h1>Serwer API</h1>
+      <ul>
+        <h2>Technologie</h2>
+        <li>lorem ipsum</li>
+        <li>lorem ipsum</li>
+        <li>lorem ipsum</li>
+      </ul>
+      <ul>
+        <h2>Zadania aplikacji</h2>
+        <li>lorem ipsum</li>
+        <li>lorem ipsum</li>
+        <li>lorem ipsum</li>
+      </ul>
+      </div>
+
+      <div className="team-description">
+      <h1>Skład grupy</h1>
+      <ul>
+        <li>Jurek Muszyński</li>
+        <li>Kacper Sinkiewicz</li>
+        <li>Arkadiusz Urbankiewicz</li>
+      </ul>
+      </div>
+
     </div>
   );
 };

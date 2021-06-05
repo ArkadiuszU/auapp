@@ -5,8 +5,7 @@ const data = {
   labels: ['Komfort'],
   datasets: [
     {
-      label: '# of Votes',
-      data: [80,20],
+      data: [0,0],
       backgroundColor: [
         'rgba(224, 224, 224, 0.5)',
         'rgba(255, 255, 255)',
@@ -20,10 +19,10 @@ const data = {
   ],
 };
 
-const DoughnutChart = () => {
+const DoughnutChart = ({m}) => {
   return(
   <>
-    <Doughnut data={data} height={0} width={0} options={{events: []}}/>
+    <Doughnut data={(m == 0)?data:m} height={0} width={0} options={{events: []}}/>
   </>
   )
   };
