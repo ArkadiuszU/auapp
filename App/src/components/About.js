@@ -96,7 +96,7 @@ const About = ({ animateTriger}) => {
       </ul>
       <ul>
         <h2>Zadania układu</h2>
-        <li>odczyt pomiarów z czujników- protokół I2C oraz 1-Wire</li>
+        <li>odczyt pomiarów z czujników- protokoły I2C/1-Wire</li>
         <li>wyznaczenie komfortu</li>
         <li>publikacja danych do API- client Http</li>
       </ul>
