@@ -260,7 +260,7 @@ const App = () => {
         </div>
         <div className="intro-box-4"> 
             <h1>Projekt zaliczeniowy</h1> 
-            <h1>Inteligentne domy i budynki oraz Monitorowanie i wizualizacja procesów </h1> 
+            <h1>Mikrokontrolery w praktyce- laboratoria</h1> 
         </div>
       </div>
 

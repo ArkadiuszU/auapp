@@ -5,7 +5,7 @@ const About = ({ animateTriger}) => {
     <div className={(animateTriger)?"about-container animation-class":"about-container"}>
       <div className="header">
         <h1>
-          Inteligentne domy i budynki oraz Monitorowanie i wizualizacja procesów{" "}
+        Mikrokontrolery w praktyce- laboratoria{" "}
         </h1>
       </div>
       <img className="rpi-image" src="/src/resources/img/pi3dirk.svg" />
@@ -89,13 +89,14 @@ const About = ({ animateTriger}) => {
         <h2>Sprzęt</h2>
         <li> komputer jednopłytkowy Raspberry Pi 4 </li>
         <li>czujnik temperatury: MCP9808  </li>
+        <li>czujnik temperatury zewnętrznej: DS18B20</li>
         <li>czujnik nasłonecznienia: BH1750 </li>
         <li>czujnik wilgotności: AM2320</li>
         <li>czujnik ciśnienia: LPS25H</li>
       </ul>
       <ul>
         <h2>Zadania układu</h2>
-        <li>odczyt pomiarów z czujników- protokół I2C</li>
+        <li>odczyt pomiarów z czujników- protokół I2C oraz 1-Wire</li>
         <li>wyznaczenie komfortu</li>
         <li>publikacja danych do API- client Http</li>
       </ul>
@@ -121,15 +122,9 @@ const About = ({ animateTriger}) => {
       <h1>Serwer API</h1>
       <ul>
         <h2>Technologie</h2>
-        <li>lorem ipsum</li>
-        <li>lorem ipsum</li>
-        <li>lorem ipsum</li>
-      </ul>
-      <ul>
-        <h2>Zadania aplikacji</h2>
-        <li>lorem ipsum</li>
-        <li>lorem ipsum</li>
-        <li>lorem ipsum</li>
+        <li>Własny silnik HTTP - język C</li>
+        <li>Interfejs bazy MySQL - język C++</li>
+        <li>Baza danych MySQL</li>
       </ul>
       </div>
 
