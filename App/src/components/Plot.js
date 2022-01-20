@@ -23,7 +23,8 @@ const options = {
 const format = [  {"name": "temperature", "value" : "temponly", id:0},
                     {"name": "humidity", "value" : "humonly" , id:1},
                     {"name": "insolation", "value" : "insonly" , id:2},
-                    {"name": "pressure", "value" : "pressonly" , id:3}, ]
+                    {"name": "pressure", "value" : "pressonly" , id:3},
+                    {"name": "temp_out", "value" : "temp_outonly" , id:4} ]
 
 const Plot = ({ data, change, triger }) => {
 
@@ -98,6 +99,7 @@ const Plot = ({ data, change, triger }) => {
             <option value={1}> humidity</option>
             <option value={2}> insolation</option>
             <option value={3}> pressure</option>
+            <option value={4}> temperature_out</option>
           </select>
 
           <label htmlFor="start-time">Choose a time for start:</label>

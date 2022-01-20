@@ -65,6 +65,7 @@ const App = () => {
     insolation: 0,
     pressure: 0,
     temperature: 0,
+    temp_out: 0,
   });
 
   const [allData, setAllData] = useState([]);
@@ -200,6 +201,11 @@ const App = () => {
 
   const RefreshPlot = (m) => {
     setdataForPlot({ data: { datasets: [], labels: [] } });
+    
+    let z= `http://silgy.org:3030/api/measurements?created_btw=${m.created.from
+    .replace("T", "+")
+    .concat(":00")},${m.created.to.replace("T", "+").concat(":00")}`
+    console.log(z);
 
     fetch(
       `http://silgy.org:3030/api/measurements?created_btw=${m.created.from
@@ -276,6 +282,7 @@ const App = () => {
           title="temperature"
           statistic = {statistic}
           value={`${Math.round(currentData.temperature * 100) / 100} °C`}
+          value2={`${Math.round(currentData.temp_out * 100) / 100} °C`}
           imgPath="/src/resources/img/temperature.png"
         />
         <DataBox
